@@ -1,6 +1,13 @@
 import { Request, Response } from 'express';
 import UserModel from "../../models/User";
 import ApiResponse from "../interfaces/ApiResponse";
+import User from "../../models/User";
+
+const usernameUnique: ApiResponse = {
+    success: false,
+    message: '',
+    error: 'Username must not be the same as the previous username'
+}
 
 export function getCurrentUser(req: Request, res: Response): void {
     const user = req.body.user;
@@ -29,18 +36,25 @@ export function registerUser(req: Request, res: Response): void {
 }
 
 export function updateCurrentUser(req: Request, res: Response): void {
-    let updateQuery = req.body.password
-        ? {username: req.body.username, password: req.body.password}
-        : {username: req.body.username}
 
-    UserModel.findByIdAndUpdate(req.body.user.id, updateQuery)
+    UserModel.findById(req.body.user.id)
         .then(user => {
             if (user !== null) {
-                res.json(<ApiResponse>{
-                    success: true,
-                    message: user._id,
-                    error: null
-                })
+                if (req.body.username) {
+                    req.body.username === user.username
+                        ? res.json(usernameUnique)
+                        : user.username = req.body.username;
+                } else {
+                    user.password = req.body.password ?? user.password
+                    user.save()
+                        .then(user => {
+                            res.json(<ApiResponse>{
+                                success: true,
+                                message: user._id,
+                                error: null
+                            })
+                        })
+                }
             }
         })
         .catch(console.warn)
