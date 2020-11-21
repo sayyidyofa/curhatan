@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken';
 import { JWT_KEY } from "../../../constants";
 import ApiResponse from "../../interfaces/ApiResponse";
+import AuthorizedUser from "../../interfaces/security/AuthorizedUser";
 
 
 const tokenInvalidReponse = <ApiResponse>{
@@ -20,8 +21,7 @@ export function AuthorizeToken(req: Request, res: Response, next: NextFunction):
   }
 
   try {
-    req.body.user = jwt.verify(authorizationHeader.substr(7), JWT_KEY)
-    console.log(req.body)
+    req.body.user = (<AuthorizedUser>jwt.verify(authorizationHeader.substr(7), JWT_KEY)).user
     next()
   } catch (err) {
     res.json(tokenInvalidReponse)

@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { JWT_KEY } from "../../constants";
 import ApiResponse from "../interfaces/ApiResponse";
 import UserModel from '../../models/User';
-import SignedToken from "../interfaces/SignedToken";
+import SignedToken from "../interfaces/security/SignedToken";
 
 /**
  * Response when authentication error.

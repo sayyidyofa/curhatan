@@ -1,4 +1,4 @@
-import SignedToken from "./SignedToken";
+import SignedToken from "./security/SignedToken";
 import IUser from "../../models/interfaces/IUser";
 import ICurhat from "../../models/interfaces/ICurhat";
 
