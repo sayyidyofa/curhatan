@@ -1,0 +1,7 @@
+.idea
+node_modules
+public/uploaded
+dist
+package-lock.json
+yarn.lock
+yarn-error.log
