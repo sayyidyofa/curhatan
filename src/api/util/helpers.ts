@@ -6,7 +6,7 @@ export function sendPanic(reason: PromiseRejectedResult, res: Response): void {
 
     res.json(<ApiResponse>{
         success: false,
-        message: '',
+        message: 'An error occured',
         error: reason
     })
 }

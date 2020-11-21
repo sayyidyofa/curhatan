@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import UserModel from "../../models/User";
 import ApiResponse from "../interfaces/ApiResponse";
-import User from "../../models/User";
+import {sendPanic} from "../util/helpers";
 
 const usernameUnique: ApiResponse = {
     success: false,
@@ -19,7 +19,7 @@ export function getCurrentUser(req: Request, res: Response): void {
                 error: null
             })
         }
-    }).catch(console.warn)
+    }).catch(reason => sendPanic(reason, res))
 }
 
 export function registerUser(req: Request, res: Response): void {
@@ -32,7 +32,7 @@ export function registerUser(req: Request, res: Response): void {
                 error: null
             })
         })
-        .catch(console.warn)
+        .catch(reason => sendPanic(reason, res))
 }
 
 export function updateCurrentUser(req: Request, res: Response): void {
@@ -57,7 +57,7 @@ export function updateCurrentUser(req: Request, res: Response): void {
                 }
             }
         })
-        .catch(console.warn)
+        .catch(reason => sendPanic(reason, res))
 }
 
 export function removeCurrentUser(req: Request, res: Response): void {
@@ -82,5 +82,5 @@ export function getCurrentUserCurhats(req: Request, res: Response): void {
                 error: null
             })
         })
-        .catch(console.warn)
+        .catch(reason => sendPanic(reason, res))
 }

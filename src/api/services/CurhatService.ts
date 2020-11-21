@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import CurhatModel from "../../models/Curhat";
 import ApiResponse from "../interfaces/ApiResponse";
+import {sendPanic} from "../util/helpers";
 
 export function getAllCurhats(req: Request, res: Response): void {
     CurhatModel.find().then(curhats => {
@@ -9,7 +10,7 @@ export function getAllCurhats(req: Request, res: Response): void {
             message: curhats,
             error: null
         })
-    }).catch(console.warn)
+    }).catch(reason => sendPanic(reason, res))
 }
 
 export function addCurhat(req: Request, res:Response): void {
@@ -22,7 +23,7 @@ export function addCurhat(req: Request, res:Response): void {
                 error: null
             })
         })
-        .catch(console.warn)
+        .catch(reason => sendPanic(reason, res))
 }
 
 export function updateCurhat(req: Request, res: Response): void {
@@ -42,7 +43,7 @@ export function updateCurhat(req: Request, res: Response): void {
                 })
             }
         })
-        .catch(console.warn)
+        .catch(reason => sendPanic(reason, res))
 }
 
 export function deleteCurhat(req: Request, res: Response): void {
@@ -60,5 +61,5 @@ export function deleteCurhat(req: Request, res: Response): void {
                 error: null
             })
         }
-    }).catch(console.warn)
+    }).catch(reason => sendPanic(reason, res))
 }
