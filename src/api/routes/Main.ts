@@ -13,7 +13,7 @@ import {CurhatUpdateValidation} from "../middlewares/validators/CurhatUpdateVali
 const router = Router()
 
 // Auth
-router.get('/auth', AuthService)
+router.post('/auth', AuthService)
 
 // UserModel
 router.post('/register', RegisterValidation, registerUser)
