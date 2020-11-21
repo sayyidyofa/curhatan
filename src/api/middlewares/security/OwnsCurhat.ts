@@ -1,14 +1,29 @@
 import { NextFunction, Request, Response } from "express";
-import UserModel from "../../../models/User";
+import CurhatModel from "../../../models/Curhat";
+import ApiResponse from "../../interfaces/ApiResponse";
 
 export function OwnsCurhat(req: Request, res: Response, next: NextFunction) {
     const user = req.body.user;
 
-    UserModel.findById(user.id).populate('curhats').exec((_, userWithCurhats) => {
-        if (typeof userWithCurhats?.curhats?.length !== 'undefined') {
-            if (userWithCurhats.curhats?.length < 1) {
+    CurhatModel.findById(req.params.id, (_, curhat) => {
+        if (curhat === null) {
+            res.json(<ApiResponse>{
+                success: false,
+                message: '',
+                error: `Curhat not found`
+            })
+            return
+        } else {
+            if (curhat.user.toString() === user.id) {
                 next()
-            } else return;
+            } else {
+                res.json(<ApiResponse>{
+                    success: false,
+                    message: '',
+                    error: `Curhat is not owned by user`
+                })
+                return
+            }
         }
-    }).catch()
+    })
 }
