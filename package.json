@@ -1,5 +1,5 @@
 {
-  "name": "maota",
+  "name": "curhatan",
   "version": "1.0.0",
   "description": "Simple chat service with auth and persistence",
   "main": "dist/server.js",
@@ -26,9 +26,9 @@
   },
   "scripts": {
     "check-types": "tsc",
-    "start": "nodemon",
+    "start": "node dist/server.js",
     "build": "babel ./src --out-dir dist --extensions '.ts' --source-maps inline",
-    "serve": "node dist/server.js"
+    "dev": "nodemon"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
