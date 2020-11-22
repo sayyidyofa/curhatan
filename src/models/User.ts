@@ -1,6 +1,5 @@
 import { model, Schema } from 'mongoose'
 import IUser from './interfaces/IUser';
-import BCrypt from 'bcrypt';
 
 
 const userSchema = new Schema({
@@ -35,11 +34,11 @@ userSchema.virtual('curhats', {
 });
 
 // https://stackoverflow.com/questions/49473635/mongoose-pre-save-gives-me-red-lines
-userSchema.pre('save', async function (this: IUser) {
+/*userSchema.pre('save', async function (this: IUser) {
   if (this.password && this.isModified('password')) {
     const salt = await BCrypt.genSalt(10);
     this.password = await BCrypt.hash(this.password, salt);
   }
-})
+})*/
 
 export default model<IUser>('IUser', userSchema)

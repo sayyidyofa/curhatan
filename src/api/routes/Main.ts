@@ -3,12 +3,11 @@ import { AuthService } from '../services/AuthService';
 import ApiResponse from "../interfaces/ApiResponse";
 import {AuthorizeToken} from "../middlewares/security/Authorize";
 import {getCurrentUserCurhats, getCurrentUser, registerUser, removeCurrentUser, updateCurrentUser} from "../services/UserService";
-import {RegisterValidation} from "../middlewares/validators/UserRegisterValidation";
-import {UpdateValidation} from "../middlewares/validators/UserUpdateValidation";
+import {RegisterValidation} from "../middlewares/validators/user/UserRegisterValidation";
+import {UpdateValidation} from "../middlewares/validators/user/UserUpdateValidation";
 import {addCurhat, deleteCurhat, getAllCurhats, updateCurhat} from "../services/CurhatService";
 import {OwnsCurhat} from "../middlewares/security/OwnsCurhat";
-import {CurhatAddValidation} from "../middlewares/validators/CurhatAddValidation";
-import {CurhatUpdateValidation} from "../middlewares/validators/CurhatUpdateValidation";
+import {CurhatValidation} from "../middlewares/validators/curhat/CurhatValidation";
 
 const router = Router()
 
@@ -16,16 +15,16 @@ const router = Router()
 router.post('/auth', AuthService)
 
 // UserModel
-router.post('/register', RegisterValidation, registerUser)
+router.post('/register', ...RegisterValidation, registerUser)
 router.get('/me', AuthorizeToken, getCurrentUser)
 router.get('/me/curhats', AuthorizeToken, getCurrentUserCurhats)
-router.put('/me', AuthorizeToken, UpdateValidation, updateCurrentUser)
+router.put('/me', AuthorizeToken, ...UpdateValidation, updateCurrentUser)
 router.delete('/me', AuthorizeToken, removeCurrentUser)
 
 // CurhatModel
 router.get('/curhats', getAllCurhats)
-router.post('/curhats', AuthorizeToken, CurhatAddValidation, addCurhat)
-router.put('/curhats/:id', AuthorizeToken, OwnsCurhat, CurhatUpdateValidation, updateCurhat)
+router.post('/curhats', AuthorizeToken, ...CurhatValidation, addCurhat);
+router.put('/curhats/:id', AuthorizeToken, OwnsCurhat, ...CurhatValidation, updateCurhat)
 router.delete('/curhats/:id', AuthorizeToken, OwnsCurhat, deleteCurhat)
 
 

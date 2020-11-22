@@ -11,8 +11,8 @@ import SignedToken from "../interfaces/security/SignedToken";
  */
 const authError = <ApiResponse>{
   success: false,
-  message: 'Nama pengguna atau kata sandi tidak cocok',
-  error: 'Username or password not match'
+  message: '',
+  error: 'Username or password do not match'
 }
 
 /**
@@ -23,9 +23,13 @@ const authError = <ApiResponse>{
  * @param res Response
  */
 export function AuthService(req: Request, res: Response): void {
-  UserModel.findOne({email: req.body.email}).then(user => {
+  UserModel.findOne({username: req.body.username}).then(user => {
     if (user === null) {
-      res.json(authError)
+      res.json(<ApiResponse>{
+        success: false,
+        message: '',
+        error: 'User not found'
+      })
       return
     }
 
