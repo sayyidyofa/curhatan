@@ -9,6 +9,8 @@ Currently there are two models:
 
 ## Development
 `yarn add` or `npm install`
+
 Modify the env variables to your setting in `src/constants.ts`
+
 Good to go
 
