@@ -1,11 +1,9 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 import mongoose from 'mongoose'
-import process from 'process'
 import Router from './api/routes/Main'
+import {MONGODB_URL, SERVER_PORT} from "./constants";
 
-const PORT = process.env.PORT || 3000
-const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/curhatan'
 
 mongoose
   .connect(MONGODB_URL, {
@@ -26,6 +24,6 @@ server.use(bodyParser.json())
 
 server.use('/', Router)
 
-server.listen(PORT, () => {
-  console.log(`Server has started at port ${PORT}`)
+server.listen(SERVER_PORT, () => {
+  console.log(`Server has started at port ${SERVER_PORT}`)
 })
