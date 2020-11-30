@@ -1,7 +1,7 @@
 import BCrypt from 'bcrypt';
 import { Request, Response } from "express";
 import jwt from 'jsonwebtoken';
-import { JWT_KEY } from "../../constants";
+import {JWT_KEY, TOKEN_VALIDITY_PERIOD} from "../../constants";
 import ApiResponse from "../interfaces/ApiResponse";
 import UserModel from '../../models/User';
 import SignedToken from "../interfaces/security/SignedToken";
@@ -39,7 +39,7 @@ export function AuthService(req: Request, res: Response): void {
           success: true,
           message: <SignedToken>{
             token: jwt.sign({ user: { id: user.id } }, JWT_KEY, <jwt.SignOptions>{
-              expiresIn: 86400 // expire in 24 hours
+              expiresIn: TOKEN_VALIDITY_PERIOD
             })
           },
           error: null
