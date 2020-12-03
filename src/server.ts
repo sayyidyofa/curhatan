@@ -3,6 +3,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import Router from './api/routes/Main'
 import {MONGODB_URL, SERVER_PORT} from "./constants";
+import {allowCrossDomain} from "./api/middlewares/security/Cors";
 
 
 mongoose
@@ -21,6 +22,7 @@ mongoose
 let server = express()
 
 server.use(bodyParser.json())
+server.use(allowCrossDomain)
 
 server.use('/', Router)
 
