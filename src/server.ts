@@ -1,9 +1,8 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 import mongoose from 'mongoose'
-import cors from 'cors'
 import Router from './api/routes/Main'
-import {MONGODB_URL, SERVER_PORT, SERVER_URL} from "./constants";
+import {MONGODB_URL, SERVER_PORT} from "./constants";
 
 
 mongoose
@@ -19,27 +18,9 @@ mongoose
     console.warn(err)
   })
 
-//options for cors midddleware
-const options: cors.CorsOptions = {
-    allowedHeaders: [
-        'Origin',
-        'X-Requested-With',
-        'Content-Type',
-        'Accept',
-        'X-Access-Token',
-    ],
-    credentials: true,
-    methods: 'GET,PUT,POST,DELETE',
-    origin: SERVER_URL,
-    preflightContinue: false,
-};
-
 let server = express()
 
 server.use(bodyParser.json())
-server.use(cors(options))
-
-server.options('*', cors(options))
 
 server.use('/', Router)
 
