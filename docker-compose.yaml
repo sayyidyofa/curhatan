@@ -1,0 +1,25 @@
+version: '3'
+services:
+  db:
+    image: mongo
+    container_name: db
+    ports:
+     - "27017:27017"
+    restart: always
+    
+  service:
+    image: curhatan
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: curhatan
+    ports:
+     - "80:80"
+    environment:
+     - JWT_KEY=developmentpurpose
+     - SERVER_PORT=3000
+     - MONGODB_URL=mongodb://db:27017/curhatan
+     - TOKEN_VALIDITY_PERIOD=604800
+    depends_on:
+      - db
+    restart: always
