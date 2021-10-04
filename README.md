@@ -14,3 +14,8 @@ Modify the env variables to your setting in `src/constants.ts`
 
 Good to go
 
+## Deployment
+
+Use provided `Dockerfile` to run it via Docker container platform.
+
+Use `docker-compose` to connect it with the required dependency (MongoDB container).
