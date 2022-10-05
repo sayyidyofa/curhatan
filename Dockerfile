@@ -1,11 +1,11 @@
-FROM node
+FROM node:slim
 
 WORKDIR /usr/src/app
 COPY package*.json ./
-COPY nodemon.json ./
-COPY tsconfig.json ./
+COPY . .
+RUN yarn install
+RUN yarn build
 
-EXPOSE 80
+EXPOSE 3000
 
-CMD yarn install \
-    && yarn start
+CMD ["node", "dist/server.js"]

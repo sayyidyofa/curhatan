@@ -14,7 +14,7 @@ services:
       dockerfile: Dockerfile
     container_name: curhatan
     ports:
-     - "80:80"
+     - "80:3000"
     environment:
      - JWT_KEY=developmentpurpose
      - SERVER_PORT=3000
